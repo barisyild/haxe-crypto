@@ -18,8 +18,10 @@ import com.hurlant.util.ByteArray;
 class PEM {
     private static inline var RSA_PRIVATE_KEY_HEADER:String = "-----BEGIN RSA PRIVATE KEY-----";
     private static inline var RSA_PRIVATE_KEY_FOOTER:String = "-----END RSA PRIVATE KEY-----";
-    private static inline var RSA_PUBLIC_KEY_HEADER:String = "-----BEGIN PUBLIC KEY-----";
-    private static inline var RSA_PUBLIC_KEY_FOOTER:String = "-----END PUBLIC KEY-----";
+    private static inline var RSA_PUBLIC_KEY_HEADER:String = "-----BEGIN RSA PUBLIC KEY-----";
+    private static inline var RSA_PUBLIC_KEY_FOOTER:String = "-----END RSA PUBLIC KEY-----";
+    private static inline var PUBLIC_KEY_HEADER:String = "-----BEGIN PUBLIC KEY-----";
+    private static inline var PUBLIC_KEY_FOOTER:String = "-----END PUBLIC KEY-----";
     private static inline var CERTIFICATE_HEADER:String = "-----BEGIN CERTIFICATE-----";
     private static inline var CERTIFICATE_FOOTER:String = "-----END CERTIFICATE-----";
 
@@ -64,8 +66,23 @@ class PEM {
      * @return
      */
     public static function readRSAPublicKey(str:String):RSAKey {
-        var der = extractBinary(RSA_PUBLIC_KEY_HEADER, RSA_PUBLIC_KEY_FOOTER, str);
         var obj = null;
+
+        // PKCS#1 RSAPublicKey (header = BEGIN RSA PUBLIC KEY)
+        var der = extractBinary(RSA_PUBLIC_KEY_HEADER, RSA_PUBLIC_KEY_FOOTER, str);
+        if (der != null) {
+            obj = DER.parse(der);
+            if (Std.is(obj, Sequence)) {
+                var arr = cast(obj, Sequence);
+                return new RSAKey(
+                    arr.get(0), // N
+                    arr.get(1).valueOf() // E
+                );
+            }
+        }
+
+        // X.509 SubjectPublicKeyInfo (header = BEGIN PUBLIC KEY)
+        der = extractBinary(PUBLIC_KEY_HEADER, PUBLIC_KEY_FOOTER, str);
         if (der != null) {
             obj = DER.parse(der);
             if (Std.is(obj, Sequence)) {
@@ -88,6 +105,7 @@ class PEM {
                 }
             }
         }
+
         throw new Error('Unhandled PEM.readRSAPublicKey $obj');
     }
 
