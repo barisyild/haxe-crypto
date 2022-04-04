@@ -1,8 +1,8 @@
 {
   "name" : "haxe-crypto",
   "description" : "Hurlant crypto library ported to haxe: secure random, tls, md2, md5, sha1, sha224, sha256, xtea, hex, base64, hmac, tlsprf, blowfish, des, tripledes, aes, cfb8, cfb, ctr, ofb, ecb, bigint, big integers, rsa, pem, rot13, uuid, utf8, utf16",
-  "version" : "0.0.7",
-  "releasenote": "Fixed BigInteger on native",
+  "version" : "0.0.8",
+  "releasenote": "Added JensG as contributor",
   "url" : "https://github.com/soywiz/haxe-crypto",
   "classPath" : "src",
   "license" : "Public",
