@@ -7,6 +7,6 @@
   "classPath" : "src",
   "license" : "Public",
   "tags" : ["secure","random","crypto","ssl","tls","md2","md5","sha1","sha224","sha256","xtea","hex","base64","hmac","tlsprf","blowfish","des","tripledes","aes","cfb8","cfb","ctr","ofb","ecb","bigint","rsa","pem","rot13","uuid"],
-  "contributors": ["soywiz"],
+  "contributors": ["soywiz", "JensG"],
   "dependencies": { }
 }
