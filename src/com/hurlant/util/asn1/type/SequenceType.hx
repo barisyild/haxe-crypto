@@ -11,7 +11,7 @@ class SequenceType extends ASN1Type {
 
     public function new(p:Array<SequenceTypeItem>) {
         super(ASN1Type.SEQUENCE);
-        if (Std.is(p, Array)) {
+        if (Std.isOfType(p, Array)) {
             children = cast(p, Array<SequenceTypeItem>);
         } else {
             childType = cast(p, ASN1Type);

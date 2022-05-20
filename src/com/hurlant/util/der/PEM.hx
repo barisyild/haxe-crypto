@@ -37,7 +37,7 @@ class PEM {
         var der:ByteArray = extractBinary(RSA_PRIVATE_KEY_HEADER, RSA_PRIVATE_KEY_FOOTER, str);
         if (der == null) return null;
         var obj = DER.parse(der);
-        if (Std.is(obj, Sequence)) {
+        if (Std.isOfType(obj, Sequence)) {
             var arr = cast(obj, Sequence);
             // arr[0] is Version. should be 0. should be checked. shoulda woulda coulda.
             return new RSAKey(
@@ -72,7 +72,7 @@ class PEM {
         var der = extractBinary(RSA_PUBLIC_KEY_HEADER, RSA_PUBLIC_KEY_FOOTER, str);
         if (der != null) {
             obj = DER.parse(der);
-            if (Std.is(obj, Sequence)) {
+            if (Std.isOfType(obj, Sequence)) {
                 var arr = cast(obj, Sequence);
                 return new RSAKey(
                     arr.get(0), // N
@@ -85,7 +85,7 @@ class PEM {
         der = extractBinary(PUBLIC_KEY_HEADER, PUBLIC_KEY_FOOTER, str);
         if (der != null) {
             obj = DER.parse(der);
-            if (Std.is(obj, Sequence)) {
+            if (Std.isOfType(obj, Sequence)) {
                 var seq = cast(obj, Sequence);
                 // arr[0] = [ <some crap that means "rsaEncryption">, null ]; ( apparently, that's an X-509 Algorithm Identifier.
                 if (Std.string(seq.get(0).get(0)) == OID.RSA_ENCRYPTION) {
@@ -93,7 +93,7 @@ class PEM {
                     //trace(seq.get(1));
                     //trace(HaxeType.getClass(seq.get(1)));
                     obj = DER.parse(seq.get(1).data);
-                    if (Std.is(obj, Sequence)) {
+                    if (Std.isOfType(obj, Sequence)) {
                         seq = cast(obj, Sequence);
                         // arr[0] = modulus
                         // arr[1] = public expt.

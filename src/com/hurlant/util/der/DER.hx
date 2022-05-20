@@ -73,7 +73,7 @@ class DER {
                     if (tmpStruct != null) {
                         while (tmpStruct && tmpStruct.optional) {
                             // make sure we have something that looks reasonable. XXX I'm winging it here..
-                            var wantConstructed:Bool = (Std.is(tmpStruct.value, Sequence));
+                            var wantConstructed:Bool = (Std.isOfType(tmpStruct.value, Sequence));
                             var isConstructed:Bool = isConstructedType(der);
                             if (wantConstructed != isConstructed) {
                                 // not found. put default stuff, or null

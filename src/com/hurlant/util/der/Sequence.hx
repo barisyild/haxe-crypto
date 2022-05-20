@@ -99,11 +99,11 @@ class Sequence implements IAsn1Type {
 
     public function findAttributeValue(oid:String):IAsn1Type {
         for (set in data) {
-            if (Std.is(set, Set)) {
+            if (Std.isOfType(set, Set)) {
                 var child = cast(set, Set).get(0);
-                if (Std.is(child, Sequence)) {
+                if (Std.isOfType(child, Sequence)) {
                     var tmp = cast(child, Sequence).get(0);
-                    if (Std.is(tmp, ObjectIdentifier)) {
+                    if (Std.isOfType(tmp, ObjectIdentifier)) {
                         var id = cast(tmp, ObjectIdentifier);
                         if (id.toString() == oid) {
                             return cast(child.get(1), IAsn1Type);

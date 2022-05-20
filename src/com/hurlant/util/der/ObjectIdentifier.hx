@@ -22,9 +22,9 @@ class ObjectIdentifier implements IAsn1Type {
     public function new(type:Int32 = 0, length:Int32 = 0, b:Dynamic = null) {
         this.type = type;
         this.len = length;
-        if (Std.is(b, ByteArrayData)) {
+        if (Std.isOfType(b, ByteArrayData)) {
             parse(cast(b, ByteArray));
-        } else if (Std.is(b, String)) {
+        } else if (Std.isOfType(b, String)) {
             generate(cast(b, String));
         } else {
             throw new Error("Invalid call to new ObjectIdentifier");

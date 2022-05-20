@@ -47,10 +47,10 @@ class X509Certificate {
         if (_loaded) return;
         var p:Dynamic = _param;
         var b:ByteArray;
-        if (Std.is(p, String)) {
+        if (Std.isOfType(p, String)) {
             b = PEM.readCertIntoArray(cast(p, String));
         }
-        else if (Std.is(p, ByteArray)) {
+        else if (Std.isOfType(p, ByteArray)) {
             b = p;
         }
         if (b != null) {
@@ -134,10 +134,10 @@ class X509Certificate {
 
     static private function getOIDFromObject(obj:Dynamic):String {
         if (obj == null) return null;
-        if (Std.is(obj, SHA1)) return OID.SHA1_ALGORITHM;
-        if (Std.is(obj, MD2)) return OID.MD2_ALGORITHM;
-        if (Std.is(obj, MD5)) return OID.MD5_ALGORITHM;
-        if (Std.is(obj, SHA256)) return OID.SHA2_ALGORITHM;
+        if (Std.isOfType(obj, SHA1)) return OID.SHA1_ALGORITHM;
+        if (Std.isOfType(obj, MD2)) return OID.MD2_ALGORITHM;
+        if (Std.isOfType(obj, MD5)) return OID.MD5_ALGORITHM;
+        if (Std.isOfType(obj, SHA256)) return OID.SHA2_ALGORITHM;
         return null;
     }
 

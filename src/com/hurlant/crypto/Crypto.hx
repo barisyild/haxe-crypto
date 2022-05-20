@@ -89,7 +89,7 @@ class Crypto {
                         keys.shift();
                         name = keys.join("-");
                         var cipher = getCipher(name, key, pad);
-                        if (Std.is(cipher, IVMode)) {
+                        if (Std.isOfType(cipher, IVMode)) {
                             return new SimpleIVMode(cast(cipher, IVMode));
                         } else {
                             return cipher;

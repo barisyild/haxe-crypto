@@ -50,7 +50,7 @@ class SSLConnectionState implements IConnectionState {
         this.CIPHER_key = key;
         this.CIPHER_IV = IV;
         this.cipher = BulkCiphers.getCipher(bulkCipher, key, 0x0300);
-        if (Std.is(cipher, IVMode)) {
+        if (Std.isOfType(cipher, IVMode)) {
             this.ivmode = cast(cipher, IVMode);
             this.ivmode.IV = IV;
         }

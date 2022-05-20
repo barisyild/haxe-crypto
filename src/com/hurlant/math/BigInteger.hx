@@ -57,7 +57,7 @@ class BigInteger {
     public function new(value:Dynamic = null, radix:Int32 = 0, unsigned:Bool = false) {
         //trace('+++++++++++++ ' + value);
         a = new Array<Int>();
-        if (Std.is(value, String)) {
+        if (Std.isOfType(value, String)) {
             if (radix != 0 && radix != 16) {
                 fromRadix(cast(value, String), radix);
                 value = null;
@@ -69,7 +69,7 @@ class BigInteger {
         }
 
         if (value != null) {
-            //if (Std.is(value, ByteArrayData)) {
+            //if (Std.isOfType(value, ByteArrayData)) {
             //trace(':::::::::::::: ' + value);
             var array = cast(value, ByteArray);
             var length:Int32 = radix;
