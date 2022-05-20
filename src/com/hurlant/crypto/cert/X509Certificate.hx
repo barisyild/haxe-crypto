@@ -74,9 +74,10 @@ class X509Certificate {
         if (time == null) time = Date.now();
         var notBefore = getNotBefore();
         var notAfter = getNotAfter();
-        if (time.getTime() < notBefore.getTime()) return false // cert isn't born yet.  ;
-        if (time.getTime() > notAfter.getTime()) return false // check signature.    // cert died of old age.  ;
+        if (time.getTime() < notBefore.getTime()) return false; // cert isn't born yet.
+        if (time.getTime() > notAfter.getTime()) return false; // cert died of old age.
 
+        // check signature.    
         var subject = getIssuerPrincipal();
         // try from CA first, since they're treated better.
         var parent = CAs.getCertificate(subject);
