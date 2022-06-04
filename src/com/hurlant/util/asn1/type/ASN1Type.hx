@@ -55,9 +55,9 @@ class ASN1Type {
 
     // various type modifiers
     public var optional:Bool = false;
-    public var implicitTag:Float = NaN;
+    public var implicitTag:Float = Math.NaN;
     public var implicitClass:Int32 = 0;
-    public var explicitTag:Float = NaN;
+    public var explicitTag:Float = Math.NaN;
     public var explicitClass:Int32 = 0;
     public var defaultValue:Dynamic = null;
     public var extract:Bool = false; // if true, the constructed parent will copy the binary value in a [name]_bin slot.
@@ -77,6 +77,8 @@ class ASN1Type {
     }
 
     public function clone():ASN1Type {
+		throw new Error('not implemented');
+		/* something is terribly wrong here, there is no ByteArray.writeObject() -> needs review
         //			if (!core) {
         //				return this;
         //			}
@@ -90,6 +92,7 @@ class ASN1Type {
         //		    }
         //			core = true;
         return c;
+		*/
     }
 
     // ok, time to parse some shit
@@ -115,13 +118,13 @@ class ASN1Type {
                 length = readDERLength(s);
             }
             if (!Math.isNaN(implicitTag)) {
-                tag = readDERTag(s, implicitClass);
+                var tag:Int32 = readDERTag(s, implicitClass);
                 if (tag != implicitTag) {
                     break;
                 }
             }
             else {
-                tag = readDERTag(s);
+                var tag:Int32 = readDERTag(s);
                 if (defaultTag == ANY) {
                     parsedTag = tag;
                 }
@@ -160,10 +163,12 @@ class ASN1Type {
         type &= 0x1F;
         if (type == 0x1F) {
             // multibyte tag. blah.
+			var o:Int32;
+			var v:Int32;
             type = 0;
             do {
-                var o:Int32 = s.readUnsignedByte();
-                var v:Int32 = o & 0x7F;
+                o = s.readUnsignedByte();
+                v = o & 0x7F;
                 type = (type << 7) + v;
             } while (((o & 0x80) != 0));
         }
