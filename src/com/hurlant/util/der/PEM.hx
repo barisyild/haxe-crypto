@@ -92,6 +92,7 @@ class PEM {
                     seq.get(0).position = 0; // there's a 0x00 byte up front. find out why later. like, read a spec.
                     //trace(seq.get(1));
                     //trace(HaxeType.getClass(seq.get(1)));
+					seq.get(1).data._position = 0; // FIX: read from beginning, not from end
                     obj = DER.parse(seq.get(1).data);
                     if (Std.isOfType(obj, Sequence)) {
                         seq = cast(obj, Sequence);
