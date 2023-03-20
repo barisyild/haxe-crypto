@@ -132,8 +132,7 @@ class Base64
         return byteString;
     }
     
-    @:meta(Deprecated())
-
+    @:deprecated()
     public static function decodeToByteArrayB(str : String) : ByteArray{
         return decodeToByteArray(str);
     }
