@@ -286,15 +286,15 @@ class ByteArrayData implements IDataOutput implements IDataInput {
     }
 
     private function bswap32Endian(value:Int32):Int32 {
-        return (this.endian == Endian.BIG_ENDIAN) ? Std2.bswap32(value) : value;
+        return (this.endian == Endian.BIG_ENDIAN) ? Std2._bswap32(value) : value;
     }
 
     private function bswap24Endian(value:Int32):Int32 {
-        return (this.endian == Endian.BIG_ENDIAN) ? Std2.bswap24(value) : value;
+        return (this.endian == Endian.BIG_ENDIAN) ? Std2._bswap24(value) : value;
     }
 
     private function bswap16Endian(value:Int32):Int32 {
-        return (this.endian == Endian.BIG_ENDIAN) ? Std2.bswap16(value) : value;
+        return (this.endian == Endian.BIG_ENDIAN) ? Std2._bswap16(value) : value;
     }
 
     public function getBytes():Bytes {
